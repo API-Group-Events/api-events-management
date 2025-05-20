@@ -85,9 +85,12 @@ public class EventosService {
             return false;
         }
         
-        // Verifica se já está inscrito
-        if (evento.getParticipantes().contains(participante)) {
-            return true;
+        // Verifica se já está inscrito comparando IDs
+        boolean jaInscrito = evento.getParticipantes().stream()
+            .anyMatch(p -> p.getId().equals(participanteId));
+            
+        if (jaInscrito) {
+            return false; // Retorna false para indicar que o participante já estava inscrito
         }
         
         // Atualiza vagas e adiciona participante
